@@ -1,0 +1,118 @@
+{
+  "common": {
+    "signIn": "登录",
+    "signOut": "退出",
+    "email": "邮箱",
+    "emailPlaceholder": "your@email.com",
+    "go": "确定",
+    "features": "功能",
+    "pricing": "定价",
+    "dashboard": "控制台",
+    "free": "免费",
+    "pro": "专业版",
+    "month": "/月",
+    "loading": "加载中...",
+    "copy": "复制",
+    "download": "下载 .md"
+  },
+  "hero": {
+    "title1": "AI 智能写作",
+    "title2": "效率提升 10 倍",
+    "subtitle": "几秒内生成 SEO 优化的文章、Meta 标签和标题创意。轻松提升搜索排名。",
+    "cta": "免费开始",
+    "emailPlaceholder": "输入邮箱即可开始",
+    "noCard": "无需信用卡。每天免费生成 3 次。"
+  },
+  "features": {
+    "title": "SEO 内容创作的一切所需",
+    "seoArticles": {
+      "title": "SEO 文章",
+      "desc": "生成全面的、关键词优化的文章，在 Google 上获得高排名。"
+    },
+    "metaTags": {
+      "title": "Meta 标签",
+      "desc": "创建引人注目的标题标签和 Meta 描述，提高点击率。"
+    },
+    "titleIdeas": {
+      "title": "标题创意",
+      "desc": "获取 20+ 个针对搜索和社交媒体优化的创意标题。"
+    }
+  },
+  "howItWorks": {
+    "title": "三步搞定",
+    "step1": {
+      "title": "输入关键词",
+      "desc": "输入你的目标关键词或主题。"
+    },
+    "step2": {
+      "title": "选择类型",
+      "desc": "选择文章、Meta 标签或标题创意。"
+    },
+    "step3": {
+      "title": "获取内容",
+      "desc": "AI 即时生成 SEO 优化内容。"
+    }
+  },
+  "pricingSection": {
+    "title": "简单透明的定价",
+    "free": {
+      "title": "免费版",
+      "desc": "适合体验试用",
+      "features": [
+        "每天 3 次生成",
+        "所有内容类型",
+        "支持所有语言",
+        "复制和下载"
+      ],
+      "cta": "免费开始"
+    },
+    "pro": {
+      "title": "专业版",
+      "desc": "适合内容创作者",
+      "features": [
+        "无限次生成",
+        "所有内容类型",
+        "支持所有语言",
+        "优先生成速度",
+        "多种格式导出"
+      ],
+      "cta": "即将推出",
+      "popular": "最受欢迎"
+    }
+  },
+  "dashboard": {
+    "title": "控制台",
+    "welcome": "欢迎回来，{name}",
+    "plan": "当前方案",
+    "remaining": "今日剩余次数",
+    "status": "状态",
+    "active": "正常",
+    "upgrade": "升级专业版 - $9.99/月",
+    "generate": {
+      "title": "生成 SEO 内容",
+      "proUnlimited": "专业版 - 无限制",
+      "freeLeft": "今日剩余 {count} 次免费生成",
+      "keyword": "关键词 / 主题",
+      "keywordPlaceholder": "例如：最佳跑步鞋 2024",
+      "contentType": "内容类型",
+      "article": "SEO 文章",
+      "meta": "Meta 标签",
+      "titles": "标题创意",
+      "language": "语言",
+      "length": "长度",
+      "short": "短",
+      "medium": "中",
+      "long": "长",
+      "submit": "生成内容",
+      "generating": "生成中...",
+      "limitReached": "今日免费次数已用完 - 升级专业版",
+      "result": "生成的内容"
+    }
+  },
+  "footer": {
+    "rights": "版权所有。",
+    "terms": "服务条款",
+    "privacy": "隐私政策",
+    "contact": "联系我们"
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "common": {
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "email": "Email",
+    "emailPlaceholder": "your@email.com",
+    "go": "Go",
+    "features": "Features",
+    "pricing": "Pricing",
+    "dashboard": "Dashboard",
+    "free": "Free",
+    "pro": "Pro",
+    "month": "/month",
+    "loading": "Loading...",
+    "copy": "Copy",
+    "download": "Download .md"
+  },
+  "hero": {
+    "title1": "Write SEO Content",
+    "title2": "10x Faster with AI",
+    "subtitle": "Generate SEO-optimized articles, meta tags, and title ideas in seconds. Boost your search rankings without the writing struggle.",
+    "cta": "Start Free",
+    "emailPlaceholder": "Enter your email to start",
+    "noCard": "No credit card required. 3 free generations daily."
+  },
+  "features": {
+    "title": "Everything You Need for SEO Content",
+    "seoArticles": {
+      "title": "SEO Articles",
+      "desc": "Generate comprehensive, keyword-optimized articles that rank on Google."
+    },
+    "metaTags": {
+      "title": "Meta Tags",
+      "desc": "Create compelling title tags and meta descriptions that boost click-through rates."
+    },
+    "titleIdeas": {
+      "title": "Title Ideas",
+      "desc": "Get 20+ creative title suggestions optimized for search and social media."
+    }
+  },
+  "howItWorks": {
+    "title": "How It Works",
+    "step1": {
+      "title": "Enter Keyword",
+      "desc": "Type your target keyword or topic."
+    },
+    "step2": {
+      "title": "Choose Type",
+      "desc": "Select article, meta tags, or title ideas."
+    },
+    "step3": {
+      "title": "Get Content",
+      "desc": "AI generates SEO-optimized content instantly."
+    }
+  },
+  "pricingSection": {
+    "title": "Simple, Transparent Pricing",
+    "free": {
+      "title": "Free",
+      "desc": "Perfect for trying out",
+      "features": [
+        "3 generations per day",
+        "All content types",
+        "All languages",
+        "Copy & download"
+      ],
+      "cta": "Get Started"
+    },
+    "pro": {
+      "title": "Pro",
+      "desc": "For serious content creators",
+      "features": [
+        "Unlimited generations",
+        "All content types",
+        "All languages",
+        "Priority generation",
+        "Export to multiple formats"
+      ],
+      "cta": "Coming Soon",
+      "popular": "Most Popular"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back, {name}",
+    "plan": "Plan",
+    "remaining": "Remaining Today",
+    "status": "Status",
+    "active": "Active",
+    "upgrade": "Upgrade to Pro - $9.99/mo",
+    "generate": {
+      "title": "Generate SEO Content",
+      "proUnlimited": "Pro - Unlimited",
+      "freeLeft": "{count} free generations left today",
+      "keyword": "Keyword / Topic",
+      "keywordPlaceholder": "e.g. best running shoes 2024",
+      "contentType": "Content Type",
+      "article": "SEO Article",
+      "meta": "Meta Tags",
+      "titles": "Title Ideas",
+      "language": "Language",
+      "length": "Length",
+      "short": "Short",
+      "medium": "Medium",
+      "long": "Long",
+      "submit": "Generate Content",
+      "generating": "Generating...",
+      "limitReached": "Daily limit reached - Upgrade to Pro",
+      "result": "Generated Content"
+    }
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "contact": "Contact"
+  }
+}

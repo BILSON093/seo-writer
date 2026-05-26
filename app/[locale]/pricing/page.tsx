@@ -1,10 +1,12 @@
 "use client";
 
 import { useSession, signIn } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import PricingCard from "@/components/PricingCard";
 
 export default function Pricing() {
   const { data: session } = useSession();
+  const t = useTranslations("pricingSection");
 
   const handleCheckout = async () => {
     if (!session) {
@@ -25,7 +27,7 @@ export default function Pricing() {
   return (
     <div className="container mx-auto px-4 py-20">
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4">Simple, Transparent Pricing</h1>
+        <h1 className="text-4xl font-bold mb-4">{t("title")}</h1>
         <p className="text-xl text-muted-foreground max-w-xl mx-auto">
           Start for free, upgrade when you need more. No hidden fees.
         </p>
@@ -33,34 +35,20 @@ export default function Pricing() {
 
       <div className="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
         <PricingCard
-          title="Free"
+          title={t("free.title")}
           price="Free"
-          description="Perfect for trying out"
-          features={[
-            "3 generations per day",
-            "All content types (Article, Meta, Titles)",
-            "All languages supported",
-            "Copy & download results",
-            "Basic support",
-          ]}
-          cta="Get Started Free"
+          description={t("free.desc")}
+          features={t.raw("free.features")}
+          cta={t("free.cta")}
           onClick={() => signIn()}
         />
         <PricingCard
-          title="Pro"
+          title={t("pro.title")}
           price="$9.99"
-          description="For serious content creators"
-          features={[
-            "Unlimited generations",
-            "All content types",
-            "All languages supported",
-            "Priority generation speed",
-            "Export to Markdown, HTML, TXT",
-            "Priority email support",
-            "Cancel anytime",
-          ]}
+          description={t("pro.desc")}
+          features={t.raw("pro.features")}
           popular
-          cta="Upgrade to Pro"
+          cta={t("pro.cta")}
           onClick={handleCheckout}
         />
       </div>

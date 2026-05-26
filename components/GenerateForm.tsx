@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,11 +16,13 @@ interface GenerateFormProps {
 export default function GenerateForm({ remaining, isPro }: GenerateFormProps) {
   const [keyword, setKeyword] = useState("");
   const [type, setType] = useState<"article" | "meta" | "titles">("article");
-  const [language, setLanguage] = useState("English");
+  const [language, setLanguage] = useState("Chinese");
   const [length, setLength] = useState<"short" | "medium" | "long">("medium");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState("");
   const [error, setError] = useState("");
+  const t = useTranslations("dashboard.generate");
+  const tCommon = useTranslations("common");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,12 +73,12 @@ export default function GenerateForm({ remaining, isPro }: GenerateFormProps) {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
-            <span>Generate SEO Content</span>
+            <span>{t("title")}</span>
             <span className="text-sm font-normal text-muted-foreground">
               {isPro ? (
-                <span className="text-green-600 font-medium">Pro - Unlimited</span>
+                <span className="text-green-600 font-medium">{t("proUnlimited")}</span>
               ) : (
-                `${remaining} free generations left today`
+                t("freeLeft", { count: remaining })
               )}
             </span>
           </CardTitle>
@@ -83,10 +86,10 @@ export default function GenerateForm({ remaining, isPro }: GenerateFormProps) {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="keyword">Keyword / Topic</Label>
+              <Label htmlFor="keyword">{t("keyword")}</Label>
               <Input
                 id="keyword"
-                placeholder="e.g. best running shoes 2024"
+                placeholder={t("keywordPlaceholder")}
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
                 required
@@ -95,27 +98,27 @@ export default function GenerateForm({ remaining, isPro }: GenerateFormProps) {
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="space-y-2">
-                <Label>Content Type</Label>
+                <Label>{t("contentType")}</Label>
                 <select
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                   value={type}
                   onChange={(e) => setType(e.target.value as typeof type)}
                 >
-                  <option value="article">SEO Article</option>
-                  <option value="meta">Meta Tags</option>
-                  <option value="titles">Title Ideas</option>
+                  <option value="article">{t("article")}</option>
+                  <option value="meta">{t("meta")}</option>
+                  <option value="titles">{t("titles")}</option>
                 </select>
               </div>
 
               <div className="space-y-2">
-                <Label>Language</Label>
+                <Label>{t("language")}</Label>
                 <select
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                   value={language}
                   onChange={(e) => setLanguage(e.target.value)}
                 >
-                  <option value="English">English</option>
                   <option value="Chinese">中文</option>
+                  <option value="English">English</option>
                   <option value="Spanish">Español</option>
                   <option value="French">Français</option>
                   <option value="German">Deutsch</option>
@@ -125,15 +128,15 @@ export default function GenerateForm({ remaining, isPro }: GenerateFormProps) {
               </div>
 
               <div className="space-y-2">
-                <Label>Length</Label>
+                <Label>{t("length")}</Label>
                 <select
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                   value={length}
                   onChange={(e) => setLength(e.target.value as typeof length)}
                 >
-                  <option value="short">Short</option>
-                  <option value="medium">Medium</option>
-                  <option value="long">Long</option>
+                  <option value="short">{t("short")}</option>
+                  <option value="medium">{t("medium")}</option>
+                  <option value="long">{t("long")}</option>
                 </select>
               </div>
             </div>
@@ -145,12 +148,12 @@ export default function GenerateForm({ remaining, isPro }: GenerateFormProps) {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
-                  Generating...
+                  {t("generating")}
                 </span>
               ) : !isPro && remaining <= 0 ? (
-                "Daily limit reached - Upgrade to Pro"
+                t("limitReached")
               ) : (
-                "Generate Content"
+                t("submit")
               )}
             </Button>
           </form>
@@ -168,13 +171,13 @@ export default function GenerateForm({ remaining, isPro }: GenerateFormProps) {
       {result && (
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0">
-            <CardTitle className="text-lg">Generated Content</CardTitle>
+            <CardTitle className="text-lg">{t("result")}</CardTitle>
             <div className="flex gap-2">
               <Button variant="outline" size="sm" onClick={copyToClipboard}>
-                Copy
+                {tCommon("copy")}
               </Button>
               <Button variant="outline" size="sm" onClick={downloadMarkdown}>
-                Download .md
+                {tCommon("download")}
               </Button>
             </div>
           </CardHeader>
