@@ -1,36 +1,142 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SEO Writer - AI 智能 SEO 内容生成器
 
-## Getting Started
+一键生成 SEO 优化文章、Meta 标签和标题创意。支持中英文，按次付费。
 
-First, run the development server:
+## 功能
+
+- **SEO 文章生成** - 输入关键词，AI 自动生成高质量 SEO 文章
+- **Meta 标签生成** - 生成标题标签和 Meta 描述，提高点击率
+- **标题创意** - 生成 20+ 个 SEO 优化的标题方案
+- **多语言支持** - 中文、英文、日文、韩文等 7 种语言
+- **按次付费** - 支持信用卡、支付宝、微信支付
+- **每天免费 3 次** - 无需注册即可体验
+
+## 技术栈
+
+- **前端：** Next.js 16 + React + Tailwind CSS + shadcn/ui
+- **后端：** Next.js API Routes
+- **AI：** Mimo API（兼容 OpenAI 格式）
+- **支付：** Stripe（支持信用卡、支付宝、微信支付）
+- **认证：** NextAuth.js
+- **部署：** Vercel
+- **国际化：** next-intl（中文/英文）
+
+## 快速开始
+
+### 1. 克隆项目
+
+```bash
+git clone https://github.com/BILSON093/seo-writer.git
+cd seo-writer
+```
+
+### 2. 安装依赖
+
+```bash
+npm install
+```
+
+### 3. 配置环境变量
+
+创建 `.env.local` 文件，填入以下配置：
+
+```env
+# Mimo AI API
+MIMO_API_KEY=你的Mimo API Key
+MIMO_API_BASE=https://token-plan-cn.xiaomimimo.com/v1
+
+# NextAuth
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=随机生成的密钥
+
+# Stripe（可选，不配置则只有免费功能）
+STRIPE_SECRET_KEY=sk_test_xxx
+STRIPE_WEBHOOK_SECRET=whsec_xxx
+STRIPE_PRICE_STARTER=price_xxx
+STRIPE_PRICE_PRO=price_xxx
+STRIPE_PRICE_BUSINESS=price_xxx
+```
+
+### 4. 启动开发服务器
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+访问 http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 部署到 Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. 推送到 GitHub
 
-## Learn More
+```bash
+git add -A
+git commit -m "init: 项目初始化"
+git push
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 2. 在 Vercel 导入项目
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. 访问 [vercel.com](https://vercel.com)
+2. 点击 "New Project"
+3. 导入 GitHub 仓库
+4. 配置环境变量
+5. 部署
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 3. 配置 Stripe Webhook
 
-## Deploy on Vercel
+1. 在 Stripe Dashboard → Developers → Webhooks
+2. 添加端点：`https://你的域名.vercel.app/api/webhooks/stripe`
+3. 选择事件：`checkout.session.completed`
+4. 复制 Webhook Secret 到环境变量
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Stripe 支付配置
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 创建产品和价格
+
+在 Stripe Dashboard → Products 中创建 3 个产品：
+
+| 产品 | 价格 | 说明 |
+|------|------|------|
+| 入门包 | $4.99 | 10 次生成额度 |
+| 专业包 | $19.99 | 50 次生成额度 |
+| 商业包 | $29.99 | 100 次生成额度 |
+
+每个产品创建后，复制 Price ID（格式：`price_xxx`）到环境变量。
+
+### 支持的支付方式
+
+- 信用卡（全球）
+- 支付宝（中国用户）
+- 微信支付（中国用户）
+
+## 项目结构
+
+```
+seo-writer/
+├── app/
+│   ├── [locale]/          # 多语言页面
+│   │   ├── page.tsx       # 首页
+│   │   ├── dashboard/     # 控制台
+│   │   └── pricing/       # 定价页
+│   └── api/               # API 路由
+│       ├── auth/          # 认证
+│       ├── generate/      # AI 生成
+│       ├── checkout/      # 支付
+│       ├── usage/         # 使用量
+│       └── webhooks/      # Stripe Webhook
+├── components/            # 组件
+├── lib/                   # 工具库
+│   ├── auth.ts            # 认证配置
+│   ├── mimo.ts            # AI API
+│   ├── stripe.ts          # 支付配置
+│   └── usage.ts           # 使用量管理
+├── messages/              # 翻译文件
+│   ├── en.json            # 英文
+│   └── zh.json            # 中文
+└── middleware.ts           # 中间件
+```
+
+## 许可证
+
+MIT

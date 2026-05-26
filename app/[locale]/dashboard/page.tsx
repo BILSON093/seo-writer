@@ -11,7 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 export default function Dashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [usage, setUsage] = useState({ remaining: 3, isPro: false });
+  const [usage, setUsage] = useState({ remaining: 0, credits: 0, freeRemaining: 0, allowed: false });
   const [loading, setLoading] = useState(true);
   const t = useTranslations("dashboard");
 
@@ -33,18 +33,6 @@ export default function Dashboard() {
     }
   }, [session]);
 
-  const handleUpgrade = async () => {
-    try {
-      const res = await fetch("/api/checkout", { method: "POST" });
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      }
-    } catch {
-      alert("Failed to start checkout. Please try again.");
-    }
-  };
-
   if (status === "loading" || loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
@@ -64,39 +52,31 @@ export default function Dashboard() {
             {t("welcome", { name: session.user?.name || session.user?.email || "" })}
           </p>
         </div>
-        {!usage.isPro && (
-          <Button onClick={handleUpgrade}>{t("upgrade")}</Button>
-        )}
+        <Button onClick={() => router.push("/pricing")}>
+          {t("buyCredits")}
+        </Button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm text-muted-foreground">{t("plan")}</CardTitle>
+            <CardTitle className="text-sm text-muted-foreground">{t("credits")}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">{usage.isPro ? t("generate.proUnlimited") : "Free"}</p>
+            <p className="text-3xl font-bold text-blue-600">{usage.credits}</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm text-muted-foreground">{t("remaining")}</CardTitle>
+            <CardTitle className="text-sm text-muted-foreground">{t("freeRemaining")}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">{usage.isPro ? "∞" : usage.remaining}</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm text-muted-foreground">{t("status")}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold text-green-600">{t("active")}</p>
+            <p className="text-3xl font-bold">{usage.freeRemaining}</p>
           </CardContent>
         </Card>
       </div>
 
-      <GenerateForm remaining={usage.remaining} isPro={usage.isPro} />
+      <GenerateForm remaining={usage.remaining} credits={usage.credits} freeRemaining={usage.freeRemaining} />
     </div>
   );
 }

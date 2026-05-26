@@ -14,6 +14,8 @@ export async function GET() {
 
   return NextResponse.json({
     remaining: usage.remaining,
-    isPro: usage.isPro,
+    credits: usage.credits,
+    freeRemaining: usage.freeRemaining,
+    allowed: usage.allowed,
   });
 }

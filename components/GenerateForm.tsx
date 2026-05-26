@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,10 +11,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface GenerateFormProps {
   remaining: number;
-  isPro: boolean;
+  credits: number;
+  freeRemaining: number;
 }
 
-export default function GenerateForm({ remaining, isPro }: GenerateFormProps) {
+export default function GenerateForm({ remaining, credits, freeRemaining }: GenerateFormProps) {
   const [keyword, setKeyword] = useState("");
   const [type, setType] = useState<"article" | "meta" | "titles">("article");
   const [language, setLanguage] = useState("Chinese");
@@ -21,8 +23,11 @@ export default function GenerateForm({ remaining, isPro }: GenerateFormProps) {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState("");
   const [error, setError] = useState("");
+  const [currentCredits, setCurrentCredits] = useState(credits);
+  const [currentFree, setCurrentFree] = useState(freeRemaining);
   const t = useTranslations("dashboard.generate");
   const tCommon = useTranslations("common");
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,6 +52,8 @@ export default function GenerateForm({ remaining, isPro }: GenerateFormProps) {
       }
 
       setResult(data.content);
+      if (data.credits !== undefined) setCurrentCredits(data.credits);
+      if (data.freeRemaining !== undefined) setCurrentFree(data.freeRemaining);
     } catch {
       setError("Network error. Please try again.");
     } finally {
@@ -75,10 +82,10 @@ export default function GenerateForm({ remaining, isPro }: GenerateFormProps) {
           <CardTitle className="flex items-center justify-between">
             <span>{t("title")}</span>
             <span className="text-sm font-normal text-muted-foreground">
-              {isPro ? (
-                <span className="text-green-600 font-medium">{t("proUnlimited")}</span>
+              {currentCredits > 0 ? (
+                <span className="text-blue-600 font-medium">{t("creditsLeft", { count: currentCredits })}</span>
               ) : (
-                t("freeLeft", { count: remaining })
+                t("freeLeft", { count: currentFree })
               )}
             </span>
           </CardTitle>
@@ -141,7 +148,7 @@ export default function GenerateForm({ remaining, isPro }: GenerateFormProps) {
               </div>
             </div>
 
-            <Button type="submit" className="w-full" disabled={loading || (!isPro && remaining <= 0)}>
+            <Button type="submit" className="w-full" disabled={loading || (currentCredits <= 0 && currentFree <= 0)}>
               {loading ? (
                 <span className="flex items-center gap-2">
                   <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
@@ -150,8 +157,10 @@ export default function GenerateForm({ remaining, isPro }: GenerateFormProps) {
                   </svg>
                   {t("generating")}
                 </span>
-              ) : !isPro && remaining <= 0 ? (
-                t("limitReached")
+              ) : currentCredits <= 0 && currentFree <= 0 ? (
+                <span onClick={() => router.push("/pricing")} className="cursor-pointer">
+                  {t("limitReached")}
+                </span>
               ) : (
                 t("submit")
               )}

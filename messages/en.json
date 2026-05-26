@@ -10,10 +10,10 @@
     "dashboard": "Dashboard",
     "free": "Free",
     "pro": "Pro",
-    "month": "/month",
     "loading": "Loading...",
     "copy": "Copy",
-    "download": "Download .md"
+    "download": "Download .md",
+    "buyMore": "Buy Credits"
   },
   "hero": {
     "title1": "Write SEO Content",
@@ -54,43 +54,67 @@
     }
   },
   "pricingSection": {
-    "title": "Simple, Transparent Pricing",
+    "title": "Pay As You Go",
+    "subtitle": "Accept Credit Card, Alipay, WeChat Pay",
+    "credits": "generations",
+    "perCredit": "per generation",
+    "buyNow": "Buy Now",
+    "popular": "Most Popular",
     "free": {
       "title": "Free",
-      "desc": "Perfect for trying out",
+      "desc": "Try it out",
       "features": [
-        "3 generations per day",
+        "3 free generations daily",
         "All content types",
         "All languages",
         "Copy & download"
       ],
       "cta": "Get Started"
     },
+    "starter": {
+      "title": "Starter",
+      "desc": "For occasional use",
+      "features": [
+        "10 generation credits",
+        "Never expires",
+        "All content types",
+        "All languages"
+      ]
+    },
     "pro": {
       "title": "Pro",
-      "desc": "For serious content creators",
+      "desc": "Best value",
       "features": [
-        "Unlimited generations",
+        "50 generation credits",
+        "Never expires",
         "All content types",
         "All languages",
-        "Priority generation",
-        "Export to multiple formats"
-      ],
-      "cta": "Coming Soon",
-      "popular": "Most Popular"
+        "Only $0.40 per generation"
+      ]
+    },
+    "business": {
+      "title": "Business",
+      "desc": "For heavy users",
+      "features": [
+        "100 generation credits",
+        "Never expires",
+        "All content types",
+        "All languages",
+        "Only $0.30 per generation"
+      ]
     }
   },
   "dashboard": {
     "title": "Dashboard",
     "welcome": "Welcome back, {name}",
-    "plan": "Plan",
-    "remaining": "Remaining Today",
+    "credits": "Credits Remaining",
+    "freeRemaining": "Free Remaining Today",
     "status": "Status",
     "active": "Active",
-    "upgrade": "Upgrade to Pro - $9.99/mo",
+    "buyCredits": "Buy Credits",
     "generate": {
       "title": "Generate SEO Content",
-      "proUnlimited": "Pro - Unlimited",
+      "creditsLeft": "{count} credits remaining",
       "freeLeft": "{count} free generations left today",
       "keyword": "Keyword / Topic",
       "keywordPlaceholder": "e.g. best running shoes 2024",
@@ -105,7 +129,7 @@
       "long": "Long",
       "submit": "Generate Content",
       "generating": "Generating...",
-      "limitReached": "Daily limit reached - Upgrade to Pro",
+      "limitReached": "Out of credits - Buy more to continue",
       "result": "Generated Content"
     }
   },

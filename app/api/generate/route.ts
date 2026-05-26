@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { generateContent } from "@/lib/mimo";
-import { checkUsage, logUsage } from "@/lib/usage";
+import { checkUsage, logUsage, getCredits } from "@/lib/usage";
 
 export async function POST(request: Request) {
   const session = await getServerSession(authOptions);
@@ -18,12 +18,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
-  // Check usage limits
   const usage = await checkUsage(session.user.email);
 
   if (!usage.allowed) {
     return NextResponse.json(
-      { error: "Daily limit reached. Upgrade to Pro for unlimited generations." },
+      { error: "次数已用完，请购买更多次数。" },
       { status: 403 }
     );
   }
@@ -32,16 +31,18 @@ export async function POST(request: Request) {
     const content = await generateContent(
       keyword,
       type,
-      language || "English",
+      language || "Chinese",
       length || "medium"
     );
 
-    // Log usage
     await logUsage(session.user.email);
+
+    const credits = await getCredits(session.user.email);
 
     return NextResponse.json({
       content,
-      remaining: usage.isPro ? Infinity : usage.remaining - 1,
+      credits,
+      freeRemaining: credits > 0 ? 0 : usage.freeRemaining - 1,
     });
   } catch (error) {
     console.error("Generation error:", error);
