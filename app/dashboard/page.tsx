@@ -1,0 +1,108 @@
+"use client";
+
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import GenerateForm from "@/components/GenerateForm";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+export default function Dashboard() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  const [usage, setUsage] = useState({ remaining: 3, isPro: false });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/");
+    }
+  }, [status, router]);
+
+  useEffect(() => {
+    if (session) {
+      fetch("/api/usage")
+        .then((res) => res.json())
+        .then((data) => {
+          setUsage(data);
+          setLoading(false);
+        })
+        .catch(() => setLoading(false));
+    }
+  }, [session]);
+
+  const handleUpgrade = async () => {
+    try {
+      const res = await fetch("/api/checkout", { method: "POST" });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch {
+      alert("Failed to start checkout. Please try again.");
+    }
+  };
+
+  if (status === "loading" || loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="animate-spin h-8 w-8 border-4 border-blue-600 border-t-transparent rounded-full" />
+      </div>
+    );
+  }
+
+  if (!session) return null;
+
+  return (
+    <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h1 className="text-3xl font-bold">Dashboard</h1>
+          <p className="text-muted-foreground mt-1">
+            Welcome back, {session.user?.name || session.user?.email}
+          </p>
+        </div>
+        {!usage.isPro && (
+          <Button onClick={handleUpgrade}>
+            Upgrade to Pro - $9.99/mo
+          </Button>
+        )}
+      </div>
+
+      {/* Usage Stats */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm text-muted-foreground">Plan</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-2xl font-bold">
+              {usage.isPro ? "Pro" : "Free"}
+            </p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm text-muted-foreground">Remaining Today</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-2xl font-bold">
+              {usage.isPro ? "∞" : usage.remaining}
+            </p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm text-muted-foreground">Status</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-2xl font-bold text-green-600">Active</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Generate Form */}
+      <GenerateForm remaining={usage.remaining} isPro={usage.isPro} />
+    </div>
+  );
+}
