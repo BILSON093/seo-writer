@@ -139,4 +139,6 @@ seo-writer/
 
 ## 许可证
 
-MIT
+Copyright (c) 2026 BILSON093. All rights reserved.
+
+本项目为源码可用，仅限非商业用途。商业使用、在付费产品中分发、付费服务、广告支持的发布、订阅、应用内购买及其他产生收入的用途，需要事先获得 BILSON093 的书面许可。详见 [LICENSE](LICENSE) 文件。
